@@ -205,7 +205,7 @@
   .bar-row:hover .bar-track { outline: 1px solid var(--line-strong); }
 
   /* outcome status tiles */
-  .outcome-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .outcome-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .outcome-tile {
     border-radius: 10px; padding: 16px; border: 1px solid var(--line);
     display: flex; flex-direction: column; gap: 8px;
@@ -257,6 +257,7 @@
   .status-chip .dot { width: 7px; height: 7px; border-radius: 50%; }
   .status-chip.warning { background: rgba(250,178,25,0.16); color: var(--warning-ink); }
   .status-chip.critical { background: rgba(208,59,59,0.14); color: var(--critical); }
+  .status-chip.followup { background: var(--accent-soft); color: var(--accent-ink); }
 
   .data-note {
     margin-top: 14px; padding: 12px 14px; border-radius: 8px; background: var(--surface);
@@ -284,10 +285,10 @@
     <h1>Clinic Analytics</h1>
     <p class="lede">Patterns across every logged clinic visit — reasons, outcomes, department load, and the daily rhythm — to help staffing and stock decisions without paging through individual records.</p>
     <div class="masthead-meta">
-      <span><b>253</b> visits on file</span>
+      <span><b>274</b> visits on file</span>
       <span>Sourced from RAS Hub Clinic records</span>
-      <span>Range <b>10–29 Sep 2026</b></span>
-      <span>Updated <b>29 September 2026</b></span>
+      <span>Range <b>10 Sep – 1 Oct 2026</b></span>
+      <span>Updated <b>1 October 2026</b></span>
     </div>
     <div class="privacy-tag">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
@@ -300,34 +301,34 @@
   <div class="stats">
     <div class="stat-tile accent">
       <div class="label">Total Visits</div>
-      <div class="value">253</div>
-      <div class="sub">Logged 10–29 September</div>
+      <div class="value">274</div>
+      <div class="sub">Logged 10 Sep – 1 Oct</div>
     </div>
     <div class="stat-tile">
       <div class="label">Unique Students Seen</div>
-      <div class="value">159</div>
-      <div class="sub">Out of 502 enrolled</div>
+      <div class="value">167</div>
+      <div class="sub">Out of 501 enrolled</div>
     </div>
     <div class="stat-tile">
       <div class="label">Frequent Visitors</div>
-      <div class="value">27</div>
+      <div class="value">31</div>
       <div class="sub">Students with 3+ visits — see Frequent Visitors tab for names</div>
     </div>
     <div class="stat-tile">
       <div class="label">Needed Follow-up</div>
-      <div class="value">16</div>
-      <div class="sub">Sent home or parent called</div>
+      <div class="value">18</div>
+      <div class="sub">Sent home, parent called, or flagged follow-up</div>
     </div>
   </div>
 
   <section class="block">
     <div class="block-head">
       <h2>Daily volume</h2>
-      <span class="block-note">13 logging days &middot; 10–29 Sep</span>
+      <span class="block-note">15 logging days &middot; 10 Sep – 1 Oct</span>
     </div>
     <div class="chart-card">
       <h3>Visits per day</h3>
-      <div class="chart-sub">Monday and Tuesday now run highest — worth checking against staffing on the floor those days</div>
+      <div class="chart-sub">Monday and Wednesday now run highest, with Tuesday close behind — worth checking against staffing on the floor those days</div>
       <div class="chart-body" id="trendChart"></div>
     </div>
   </section>
@@ -335,7 +336,7 @@
   <section class="block">
     <div class="block-head">
       <h2>What brings students in</h2>
-      <span class="block-note">270 reason mentions across 253 visits</span>
+      <span class="block-note">293 reason mentions across 274 visits</span>
     </div>
     <div class="block-sub">Some visits record more than one reason, so mentions run slightly ahead of visit count. "Unspecified" means the reason field was left blank — mostly older records logged before the current form was in daily use.</div>
     <div class="charts-grid">
@@ -362,7 +363,7 @@
     </div>
     <div class="chart-card">
       <h3>Visits by department</h3>
-      <div class="chart-sub">Middle School and High Elementary carry the heaviest clinic load this period</div>
+      <div class="chart-sub">Middle School and High School now carry the heaviest clinic load, with High Elementary close behind</div>
       <div class="chart-body" id="deptChart"></div>
     </div>
   </section>
@@ -384,7 +385,7 @@
   <section class="block">
     <div class="block-head">
       <h2>Follow-up log</h2>
-      <span class="block-note">16 records</span>
+      <span class="block-note">18 records</span>
     </div>
     <div class="block-sub">Every visit that ended in "Sent home" or "Parent called," so a pattern is visible without opening each record. No names — cross-reference the date against the Visits screen in RAS Hub if you need the student.</div>
     <div class="chart-card" style="padding: 6px 0;">
@@ -405,60 +406,61 @@
 
 <script>
 const REASONS = [
-  ["Cold/Cough", 38, false],
-  ["Sore Throat", 33, false],
-  ["Stomach Ache / Cramps", 27, false],
-  ["Dizzy", 24, false],
-  ["Headache", 19, false],
-  ["Muscle Spasm", 11, false],
-  ["Bumped", 10, false],
+  ["Cold/Cough", 39, false],
+  ["Sore Throat", 36, false],
+  ["Unspecified", 35, true],
+  ["Stomach Ache / Cramps", 28, false],
+  ["Dizzy", 27, false],
+  ["Headache", 22, false],
+  ["Bumped", 12, false],
+  ["Muscle Spasm", 12, false],
+  ["Cut/Scrape", 10, false],
   ["Other", 10, false],
-  ["Cut/Scrape", 9, false],
   ["Stomachache", 8, false],
   ["Fell Down", 7, false],
   ["Bruise", 7, false],
   ["Nausea/Vomiting", 5, false],
   ["Dental", 5, false],
   ["Cramps", 4, false],
+  ["Menstrual Cramps", 3, false],
+  ["Blocked Nose", 3, false],
   ["Eye (L/R)", 3, false],
-  ["Menstrual Cramps", 2, false],
+  ["Allergy", 3, false],
   ["Itchy Eye", 2, false],
+  ["Earache", 2, false],
   ["Fever", 2, false],
   ["Pink Eye", 2, false],
   ["Diarrhea", 1, false],
-  ["Blocked Nose", 1, false],
-  ["Earache", 1, false],
   ["Mouth Ulcer", 1, false],
   ["Scratch", 1, false],
-  ["Allergy", 1, false],
   ["Insect Bite", 1, false],
   ["Nosebleed", 1, false],
   ["Asthma", 1, false],
-  ["Unspecified", 33, true],
 ];
 
 const OUTCOMES = [
-  { label: "Back to class", n: 237, color: "var(--good)", icon: "check" },
+  { label: "Back to class", n: 256, color: "var(--good)", icon: "check" },
   { label: "Sent home", n: 10, color: "var(--warning)", icon: "warn" },
-  { label: "Parent called", n: 6, color: "var(--critical)", icon: "alert" },
+  { label: "Parent called", n: 7, color: "var(--critical)", icon: "alert" },
+  { label: "Follow up", n: 1, color: "var(--accent)", icon: "followup" },
 ];
 
 const DEPTS = [
-  { label: "High Elementary", n: 66, color: "var(--dept-3)" },
-  { label: "Middle School", n: 70, color: "var(--dept-2)" },
-  { label: "High School", n: 64, color: "var(--dept-1)" },
-  { label: "Lower Elementary", n: 46, color: "var(--dept-4)" },
+  { label: "High Elementary", n: 68, color: "var(--dept-3)" },
+  { label: "Middle School", n: 78, color: "var(--dept-2)" },
+  { label: "High School", n: 69, color: "var(--dept-1)" },
+  { label: "Lower Elementary", n: 52, color: "var(--dept-4)" },
   { label: "Pre-K", n: 7, color: "var(--dept-5)" },
 ];
 
 const DOW = [
-  ["Sun", 52], ["Mon", 62], ["Tue", 54], ["Wed", 43], ["Thu", 42],
+  ["Sun", 52], ["Mon", 62], ["Tue", 55], ["Wed", 62], ["Thu", 43],
 ];
 
 const DAILY = [
   ["Sep 10", 1], ["Sep 13", 11], ["Sep 14", 18], ["Sep 16", 16], ["Sep 17", 26],
   ["Sep 20", 32], ["Sep 21", 12], ["Sep 22", 22], ["Sep 23", 27], ["Sep 24", 15],
-  ["Sep 27", 9], ["Sep 28", 32], ["Sep 29", 32],
+  ["Sep 27", 9], ["Sep 28", 32], ["Sep 29", 33], ["Sep 30", 19], ["Oct 1", 1],
 ];
 
 const FOLLOWUP = [
@@ -470,14 +472,16 @@ const FOLLOWUP = [
   ["2026-09-20", "Sent home", "Pink Eye"],
   ["2026-09-20", "Sent home", "Dizzy"],
   ["2026-09-21", "Sent home", "Fever, Cold/Cough"],
-  ["2026-09-24", "Sent home", "Stomach Ache / Cramps"],
   ["2026-09-24", "Parent called", "Unspecified"],
+  ["2026-09-24", "Sent home", "Stomach Ache / Cramps"],
   ["2026-09-27", "Sent home", "Sore Throat"],
-  ["2026-09-28", "Parent called", "Stomach Ache / Cramps"],
   ["2026-09-28", "Parent called", "Dizzy"],
   ["2026-09-28", "Parent called", "Scratch"],
-  ["2026-09-28", "Sent home", "Stomach Ache / Cramps"],
   ["2026-09-28", "Sent home", "Cold/Cough"],
+  ["2026-09-28", "Sent home", "Stomach Ache / Cramps"],
+  ["2026-09-28", "Parent called", "Stomach Ache / Cramps"],
+  ["2026-09-30", "Follow up", "Cut/Scrape"],
+  ["2026-09-30", "Parent called", "Dizzy"],
 ];
 
 // ---- Reason bars ----
@@ -501,6 +505,7 @@ const FOLLOWUP = [
     check: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>',
     warn: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17a2 2 0 001.7 3h15.6a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>',
     alert: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2a7 7 0 00-7 7c0 5-2 6-2 7h18s-2-1-2-7a7 7 0 00-7-7zM9 21a3 3 0 006 0"/></svg>',
+    followup: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12a9 9 0 1 1 2.6 6.3M3 12v5h5"/></svg>',
   };
   el.innerHTML = OUTCOMES.map(o => {
     const pct = ((o.n / total) * 100).toFixed(1);
@@ -577,7 +582,7 @@ const FOLLOWUP = [
 (function () {
   const el = document.getElementById("logBody");
   el.innerHTML = FOLLOWUP.map(([date, outcome, reason]) => {
-    const cls = outcome === "Parent called" ? "critical" : "warning";
+    const cls = outcome === "Parent called" ? "critical" : outcome === "Follow up" ? "followup" : "warning";
     return `<tr>
       <td class="date">${date}</td>
       <td><span class="status-chip ${cls}"><span class="dot" style="background:currentColor"></span>${outcome}</span></td>
