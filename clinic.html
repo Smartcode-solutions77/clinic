@@ -285,10 +285,10 @@
     <h1>Clinic Analytics</h1>
     <p class="lede">Patterns across every logged clinic visit — reasons, outcomes, department load, and the daily rhythm — to help staffing and stock decisions without paging through individual records.</p>
     <div class="masthead-meta">
-      <span><b>431</b> visits on file</span>
+      <span><b>473</b> visits on file</span>
       <span>Sourced from RAS Hub Clinic records</span>
-      <span>Range <b>10 Sep – 11 Oct 2026</b></span>
-      <span>Updated <b>11 October 2026</b></span>
+      <span>Range <b>10 Sep – 13 Oct 2026</b></span>
+      <span>Updated <b>13 October 2026</b></span>
     </div>
     <div class="privacy-tag">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
@@ -301,22 +301,22 @@
   <div class="stats">
     <div class="stat-tile accent">
       <div class="label">Total Visits</div>
-      <div class="value">431</div>
-      <div class="sub">Logged 10 Sep – 11 Oct</div>
+      <div class="value">473</div>
+      <div class="sub">Logged 10 Sep – 13 Oct</div>
     </div>
     <div class="stat-tile">
       <div class="label">Unique Students Seen</div>
-      <div class="value">224</div>
+      <div class="value">243</div>
       <div class="sub">Out of 501 enrolled</div>
     </div>
     <div class="stat-tile">
       <div class="label">Frequent Visitors</div>
-      <div class="value">52</div>
+      <div class="value">54</div>
       <div class="sub">Students with 3+ visits — see Frequent Visitors tab for names</div>
     </div>
     <div class="stat-tile">
       <div class="label">Needed Follow-up</div>
-      <div class="value">23</div>
+      <div class="value">29</div>
       <div class="sub">Sent home, parent called, or flagged follow-up</div>
     </div>
   </div>
@@ -324,7 +324,7 @@
   <section class="block">
     <div class="block-head">
       <h2>Daily volume</h2>
-      <span class="block-note">20 logging days &middot; 10 Sep – 11 Oct</span>
+      <span class="block-note">22 logging days &middot; 10 Sep – 13 Oct</span>
     </div>
     <div class="chart-card">
       <h3>Visits per day</h3>
@@ -336,7 +336,7 @@
   <section class="block">
     <div class="block-head">
       <h2>What brings students in</h2>
-      <span class="block-note">468 reason mentions across 431 visits</span>
+      <span class="block-note">515 reason mentions across 473 visits</span>
     </div>
     <div class="block-sub">Some visits record more than one reason, so mentions run slightly ahead of visit count. "Unspecified" means the reason field was left blank — mostly older records logged before the current form was in daily use.</div>
     <div class="charts-grid">
@@ -406,32 +406,32 @@
 
 <script>
 const REASONS = [
-  ["Cold/Cough", 58, false],
-  ["Unspecified", 56, true],
-  ["Stomach Ache / Cramps", 53, false],
-  ["Sore Throat", 49, false],
-  ["Headache", 40, false],
-  ["Dizzy", 38, false],
-  ["Bumped", 23, false],
-  ["Cut/Scrape", 18, false],
-  ["Muscle Spasm", 18, false],
-  ["Fell Down", 13, false],
+  ["Cold/Cough", 63, false],
+  ["Stomach Ache / Cramps", 60, false],
+  ["Unspecified", 58, true],
+  ["Sore Throat", 51, false],
+  ["Dizzy", 45, false],
+  ["Headache", 43, false],
+  ["Bumped", 28, false],
+  ["Muscle Spasm", 20, false],
+  ["Cut/Scrape", 19, false],
+  ["Fell Down", 15, false],
   ["Other", 11, false],
-  ["Menstrual Cramps", 9, false],
+  ["Menstrual Cramps", 10, false],
   ["Bruise", 9, false],
   ["Stomachache", 8, false],
-  ["Blocked Nose", 6, false],
+  ["Blocked Nose", 7, false],
+  ["Dental", 7, false],
   ["Nausea/Vomiting", 6, false],
   ["Earache", 6, false],
-  ["Dental", 6, false],
+  ["Insect Bite", 6, false],
+  ["Itching", 4, false],
+  ["Diarrhea", 4, false],
   ["Cramps", 4, false],
-  ["Insect Bite", 4, false],
-  ["Bodyache", 3, false],
-  ["Itching", 3, false],
-  ["Eye (L/R)", 3, false],
-  ["Allergy", 3, false],
+  ["Bodyache", 4, false],
+  ["Eye (L/R)", 4, false],
+  ["Allergy", 4, false],
   ["Sneezing", 3, false],
-  ["Diarrhea", 2, false],
   ["Itchy Eye", 2, false],
   ["Nosebleed", 2, false],
   ["Sprain", 2, false],
@@ -445,24 +445,24 @@ const REASONS = [
 ];
 
 const OUTCOMES = [
-  { label: "Back to class", n: 406, color: "var(--good)", icon: "check" },
-  { label: "Sent home", n: 14, color: "var(--warning)", icon: "warn" },
-  { label: "Parent called", n: 8, color: "var(--critical)", icon: "alert" },
+  { label: "Back to class", n: 444, color: "var(--good)", icon: "check" },
+  { label: "Sent home", n: 16, color: "var(--warning)", icon: "warn" },
+  { label: "Parent called", n: 10, color: "var(--critical)", icon: "alert" },
   { label: "Follow up", n: 3, color: "var(--accent)", icon: "followup" },
 ];
 
 const DEPTS = [
-  { label: "Middle School", n: 115, color: "var(--dept-2)" },
-  { label: "High Elementary", n: 113, color: "var(--dept-3)" },
-  { label: "High School", n: 109, color: "var(--dept-1)" },
-  { label: "Lower Elementary", n: 82, color: "var(--dept-4)" },
-  { label: "Pre-K", n: 12, color: "var(--dept-5)" },
+  { label: "High Elementary", n: 125, color: "var(--dept-3)" },
+  { label: "High School", n: 122, color: "var(--dept-1)" },
+  { label: "Middle School", n: 121, color: "var(--dept-2)" },
+  { label: "Lower Elementary", n: 87, color: "var(--dept-4)" },
+  { label: "Pre-K", n: 18, color: "var(--dept-5)" },
 ];
 
 const DOW = [
   ["Sun", 104],
-  ["Mon", 96],
-  ["Tue", 84],
+  ["Mon", 124],
+  ["Tue", 98],
   ["Wed", 77],
   ["Thu", 70],
 ];
@@ -488,6 +488,8 @@ const DAILY = [
   ["Oct 6", 29],
   ["Oct 7", 15],
   ["Oct 11", 15],
+  ["Oct 12", 28],
+  ["Oct 13", 14],
 ];
 
 const FOLLOWUP = [
@@ -516,6 +518,10 @@ const FOLLOWUP = [
   ["2026-10-05", "Follow up", "Cold/Cough, Sore Throat, Bodyache"],
   ["2026-10-11", "Sent home", "Stomach Ache / Cramps"],
   ["2026-10-11", "Sent home", "Unspecified"],
+  ["2026-10-12", "Parent called", "Fell Down"],
+  ["2026-10-12", "Sent home", "Stomach Ache / Cramps, Diarrhea"],
+  ["2026-10-12", "Sent home", "Stomach Ache / Cramps"],
+  ["2026-10-13", "Parent called", "Headache"],
 ];
 
 // ---- Reason bars ----
