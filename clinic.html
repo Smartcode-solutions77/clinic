@@ -269,6 +269,27 @@
   .insight-body { font-size: 13.5px; color: var(--ink-secondary); line-height: 1.6; }
   .insight-body strong { color: var(--ink); font-weight: 600; }
 
+  .donut-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .donut-ring { width: 128px; height: 128px; border-radius: 50%; flex-shrink: 0; position: relative; }
+  .donut-center { position: absolute; inset: 18px; border-radius: 50%; background: var(--surface-raised); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-center .n { font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 700; color: var(--ink); }
+  .donut-center .lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+  .donut-legend { display: flex; flex-direction: column; gap: 7px; }
+  .donut-legend-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-secondary); }
+  .donut-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .donut-legend-row b { color: var(--ink); font-family: "IBM Plex Mono", monospace; margin-left: auto; padding-left: 12px; }
+
+  .gauge-card-body { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .gauge-body { flex: 1; min-width: 220px; font-size: 13px; color: var(--ink-secondary); line-height: 1.6; }
+  .gauge-body strong { color: var(--ink); }
+
+  .pictogram-wrap { flex-shrink: 0; }
+  .pictogram-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; width: 190px; }
+  .pictogram-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--good); }
+  .pictogram-dot.flagged { background: var(--line-strong); }
+  .pictogram-caption { margin-top: 10px; text-align: center; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+  .pictogram-caption b { color: var(--good); }
+
   .data-note {
     margin-top: 14px; padding: 12px 14px; border-radius: 8px; background: var(--surface);
     border: 1px solid var(--line); font-size: 12.5px; color: var(--ink-secondary); line-height: 1.55;
@@ -395,6 +416,7 @@
         <h3>Outcome</h3>
         <div class="chart-sub">What happened after the visit</div>
         <div class="chart-body">
+          <div class="donut-wrap" id="outcomeDonut"></div>
           <div class="outcome-grid" id="outcomeGrid"></div>
         </div>
         <div class="data-note">Every "Sent home" or "Parent called" visit is logged in the follow-up list below, by date and reason only.</div>
@@ -407,10 +429,33 @@
       <h2>Load by department</h2>
       <span class="block-note">5 departments</span>
     </div>
+    <div class="block-sub">High School continues to carry the heaviest clinic load, with High Elementary close behind and Middle School trailing by a wider margin</div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Visits by department</h3>
+        <div class="chart-sub">Ranked, with share of total load</div>
+        <div class="chart-body" id="deptChart"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Share of clinic load</h3>
+        <div class="chart-sub">Same numbers, at a glance</div>
+        <div class="chart-body" id="deptDonut"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Follow-up rate</h2>
+      <span class="block-note">Out of all logged visits</span>
+    </div>
     <div class="chart-card">
-      <h3>Visits by department</h3>
-      <div class="chart-sub">High School continues to carry the heaviest clinic load, with High Elementary close behind and Middle School trailing by a wider margin</div>
-      <div class="chart-body" id="deptChart"></div>
+      <div class="gauge-card-body">
+        <div class="pictogram-wrap" id="followupGauge"></div>
+        <div class="gauge-body">
+          <strong>94.5% of visits end with the student simply returning to class.</strong> Only 36 of 658 (5.5%) needed Sent Home, Parent Called, or Follow Up — and that share has eased slightly from 6.0% at the last update, even as total visits grew.
+        </div>
+      </div>
     </div>
   </section>
 
@@ -620,6 +665,29 @@ const FOLLOWUP = [
   }).join("");
 })();
 
+// ---- Outcome donut ----
+(function () {
+  const el = document.getElementById("outcomeDonut");
+  const total = OUTCOMES.reduce((s, o) => s + o.n, 0);
+  let acc = 0;
+  const parts = OUTCOMES.map(o => {
+    const start = (acc / total) * 360;
+    acc += o.n;
+    const end = (acc / total) * 360;
+    return `${o.color} ${start}deg ${end}deg`;
+  });
+  const gradient = `conic-gradient(${parts.join(", ")})`;
+  const legend = OUTCOMES.map(o => `<div class="donut-legend-row">
+    <span class="donut-dot" style="background:${o.color}"></span>
+    <span>${o.label}</span>
+    <b>${((o.n/total)*100).toFixed(0)}%</b>
+  </div>`).join("");
+  el.innerHTML = `<div class="donut-ring" style="background:${gradient}">
+      <div class="donut-center"><div class="n">${total}</div><div class="lbl">Visits</div></div>
+    </div>
+    <div class="donut-legend">${legend}</div>`;
+})();
+
 // ---- Department bars ----
 (function () {
   const el = document.getElementById("deptChart");
@@ -631,6 +699,46 @@ const FOLLOWUP = [
       <div class="dept-track"><div class="dept-fill" style="width:${pct}%;background:${d.color}"><span>${d.n}</span></div></div>
     </div>`;
   }).join("");
+})();
+
+// ---- Department donut ----
+(function () {
+  const el = document.getElementById("deptDonut");
+  const total = DEPTS.reduce((s, d) => s + d.n, 0);
+  let acc = 0;
+  const parts = DEPTS.map(d => {
+    const start = (acc / total) * 360;
+    acc += d.n;
+    const end = (acc / total) * 360;
+    return `${d.color} ${start}deg ${end}deg`;
+  });
+  const gradient = `conic-gradient(${parts.join(", ")})`;
+  const legend = DEPTS.map(d => `<div class="donut-legend-row">
+    <span class="donut-dot" style="background:${d.color}"></span>
+    <span>${d.label}</span>
+    <b>${d.n} (${((d.n/total)*100).toFixed(0)}%)</b>
+  </div>`).join("");
+  el.innerHTML = `<div class="donut-wrap" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
+    <div class="donut-ring" style="background:${gradient}">
+      <div class="donut-center"><div class="n">${total}</div><div class="lbl">Visits</div></div>
+    </div>
+    <div class="donut-legend">${legend}</div>
+  </div>`;
+})();
+
+// ---- Follow-up rate pictogram ----
+(function () {
+  const el = document.getElementById("followupGauge");
+  const total = 658, followup = 36;
+  const pct = (followup / total) * 100;
+  const flaggedDots = Math.round(pct); // out of 100 icons
+  let dots = "";
+  for (let i = 0; i < 100; i++) {
+    dots += `<div class="pictogram-dot${i < flaggedDots ? " flagged" : ""}"></div>`;
+  }
+  const backPct = (100 - pct).toFixed(1);
+  el.innerHTML = `<div class="pictogram-grid">${dots}</div>
+    <div class="pictogram-caption"><b>${backPct}%</b> of visits end back in class</div>`;
 })();
 
 // ---- Day of week ----
