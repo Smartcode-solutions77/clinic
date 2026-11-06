@@ -259,6 +259,16 @@
   .status-chip.critical { background: rgba(208,59,59,0.14); color: var(--critical); }
   .status-chip.followup { background: var(--accent-soft); color: var(--accent-ink); }
 
+  .insight-list { display: flex; flex-direction: column; gap: 4px; }
+  .insight-item { display: flex; align-items: flex-start; gap: 16px; padding: 14px 4px; border-bottom: 1px solid var(--line); }
+  .insight-item:last-child { border-bottom: none; }
+  .insight-stat {
+    font-family: "IBM Plex Mono", monospace; font-size: 20px; font-weight: 600; color: var(--accent);
+    width: 72px; flex-shrink: 0; text-align: right; line-height: 1.3; padding-top: 1px;
+  }
+  .insight-body { font-size: 13.5px; color: var(--ink-secondary); line-height: 1.6; }
+  .insight-body strong { color: var(--ink); font-weight: 600; }
+
   .data-note {
     margin-top: 14px; padding: 12px 14px; border-radius: 8px; background: var(--surface);
     border: 1px solid var(--line); font-size: 12.5px; color: var(--ink-secondary); line-height: 1.55;
@@ -285,10 +295,10 @@
     <h1>Clinic Analytics</h1>
     <p class="lede">Patterns across every logged clinic visit — reasons, outcomes, department load, and the daily rhythm — to help staffing and stock decisions without paging through individual records.</p>
     <div class="masthead-meta">
-      <span><b>601</b> visits on file</span>
+      <span><b>658</b> visits on file</span>
       <span>Sourced from RAS Hub Clinic records</span>
-      <span>Range <b>10 Sep – 2 Nov 2026</b></span>
-      <span>Updated <b>2 November 2026</b></span>
+      <span>Range <b>10 Sep – 5 Nov 2026</b></span>
+      <span>Updated <b>6 November 2026</b></span>
     </div>
     <div class="privacy-tag">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
@@ -301,17 +311,17 @@
   <div class="stats">
     <div class="stat-tile accent">
       <div class="label">Total Visits</div>
-      <div class="value">601</div>
-      <div class="sub">Logged 10 Sep – 2 Nov</div>
+      <div class="value">658</div>
+      <div class="sub">Logged 10 Sep – 5 Nov</div>
     </div>
     <div class="stat-tile">
       <div class="label">Unique Students Seen</div>
-      <div class="value">279</div>
-      <div class="sub">Out of 501 enrolled</div>
+      <div class="value">291</div>
+      <div class="sub">Out of 502 enrolled</div>
     </div>
     <div class="stat-tile">
       <div class="label">Frequent Visitors</div>
-      <div class="value">81</div>
+      <div class="value">89</div>
       <div class="sub">Students with 3+ visits — see Frequent Visitors tab for names</div>
     </div>
     <div class="stat-tile">
@@ -323,12 +333,48 @@
 
   <section class="block">
     <div class="block-head">
+      <h2>Key insights</h2>
+      <span class="block-note">Analysis as of 6 Nov 2026</span>
+    </div>
+    <div class="block-sub">Patterns worth a second look, drawn from the numbers below — not a substitute for individual records, but a starting point for staffing and follow-up decisions.</div>
+    <div class="chart-card">
+      <div class="insight-list">
+        <div class="insight-item">
+          <div class="insight-stat">+17%</div>
+          <div class="insight-body"><strong>Daily traffic has climbed steadily since term start.</strong> Visits averaged 19.5/day in September, rose to 22.8/day in October, and are holding around 22.2/day so far in November — a sustained increase, not a one-off spike, worth factoring into clinic staffing.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">176</div>
+          <div class="insight-body"><strong>Monday remains the heaviest day by a clear margin.</strong> 176 visits logged on Mondays vs. 143 on Tuesdays and 121 on Sundays — if this pattern holds, Monday morning is the first place to reinforce coverage.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">28%</div>
+          <div class="insight-body"><strong>High School carries the largest share of visits</strong> — 187 of 658 (28%), ahead of High Elementary (170) and well ahead of Middle School (143), Lower Elementary (129), and Pre-K (29).</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">89</div>
+          <div class="insight-body"><strong>Nearly a third of students seen are repeat visitors.</strong> 89 of 291 students have visited 3+ times, and one student has visited 13 times — worth a look in the Frequent Visitors tab for anyone who may need a different kind of support.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">5.5%</div>
+          <div class="insight-body"><strong>No new Sent Home / Parent Called / Follow-up cases since the last update.</strong> All 36 on record predate 2 Nov, even as total visits grew by 57 — the follow-up rate has actually eased slightly, from 6.0% to 5.5% of all visits.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">9.4%</div>
+          <div class="insight-body"><strong>"Unspecified" is still the 3rd most common reason entry</strong> — 67 mentions (9.4% of all reasons recorded), mostly blank reason fields. Worth a reminder to staff to log the reason consistently going forward.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
       <h2>Daily volume</h2>
-      <span class="block-note">28 logging days &middot; 10 Sep – 2 Nov</span>
+      <span class="block-note">31 logging days &middot; 10 Sep – 5 Nov</span>
     </div>
     <div class="chart-card">
       <h3>Visits per day</h3>
-      <div class="chart-sub">Monday now runs highest by a wide margin, with Sunday and Tuesday tied behind it — worth checking against staffing on the floor those days</div>
+      <div class="chart-sub">Monday remains highest by a clear margin, with Tuesday now the firm second — worth checking against staffing on the floor those days</div>
       <div class="chart-body" id="trendChart"></div>
     </div>
   </section>
@@ -336,7 +382,7 @@
   <section class="block">
     <div class="block-head">
       <h2>What brings students in</h2>
-      <span class="block-note">653 reason mentions across 601 visits</span>
+      <span class="block-note">715 reason mentions across 658 visits</span>
     </div>
     <div class="block-sub">Some visits record more than one reason, so mentions run slightly ahead of visit count. "Unspecified" means the reason field was left blank — mostly older records logged before the current form was in daily use.</div>
     <div class="charts-grid">
@@ -363,7 +409,7 @@
     </div>
     <div class="chart-card">
       <h3>Visits by department</h3>
-      <div class="chart-sub">High School and High Elementary now carry the heaviest clinic load, with Middle School close behind</div>
+      <div class="chart-sub">High School continues to carry the heaviest clinic load, with High Elementary close behind and Middle School trailing by a wider margin</div>
       <div class="chart-body" id="deptChart"></div>
     </div>
   </section>
@@ -405,19 +451,19 @@
 
 <script>
 const REASONS = [
-  ["Stomach Ache / Cramps", 81, false],
-  ["Cold/Cough", 73, false],
-  ["Unspecified", 65, true],
-  ["Headache", 57, false],
-  ["Sore Throat", 57, false],
-  ["Dizzy", 49, false],
-  ["Bumped", 43, false],
-  ["Muscle Spasm", 31, false],
-  ["Cut/Scrape", 23, false],
+  ["Stomach Ache / Cramps", 96, false],
+  ["Cold/Cough", 77, false],
+  ["Unspecified", 67, true],
+  ["Headache", 63, false],
+  ["Sore Throat", 59, false],
+  ["Dizzy", 54, false],
+  ["Bumped", 54, false],
+  ["Muscle Spasm", 34, false],
+  ["Cut/Scrape", 31, false],
   ["Fell Down", 22, false],
-  ["Menstrual Cramps", 16, false],
+  ["Menstrual Cramps", 18, false],
+  ["Insect Bite", 15, false],
   ["Nausea/Vomiting", 14, false],
-  ["Insect Bite", 13, false],
   ["Other", 12, false],
   ["Bruise", 10, false],
   ["Dental", 8, false],
@@ -425,10 +471,10 @@ const REASONS = [
   ["Blocked Nose", 7, false],
   ["Earache", 7, false],
   ["Bodyache", 6, false],
+  ["Diarrhea", 6, false],
   ["Allergy", 5, false],
   ["Sprain", 5, false],
   ["Itching", 4, false],
-  ["Diarrhea", 4, false],
   ["Cramps", 4, false],
   ["Eye (L/R)", 4, false],
   ["Sneezing", 4, false],
@@ -445,26 +491,26 @@ const REASONS = [
 ];
 
 const OUTCOMES = [
-  { label: "Back to class", n: 565, color: "var(--good)", icon: "check" },
+  { label: "Back to class", n: 622, color: "var(--good)", icon: "check" },
   { label: "Sent home", n: 22, color: "var(--warning)", icon: "warn" },
   { label: "Parent called", n: 10, color: "var(--critical)", icon: "alert" },
   { label: "Follow up", n: 4, color: "var(--accent)", icon: "followup" },
 ];
 
 const DEPTS = [
-  { label: "High School", n: 163, color: "var(--dept-1)" },
-  { label: "High Elementary", n: 156, color: "var(--dept-3)" },
-  { label: "Middle School", n: 138, color: "var(--dept-2)" },
-  { label: "Lower Elementary", n: 120, color: "var(--dept-4)" },
-  { label: "Pre-K", n: 24, color: "var(--dept-5)" },
+  { label: "High School", n: 187, color: "var(--dept-1)" },
+  { label: "High Elementary", n: 170, color: "var(--dept-3)" },
+  { label: "Middle School", n: 143, color: "var(--dept-2)" },
+  { label: "Lower Elementary", n: 129, color: "var(--dept-4)" },
+  { label: "Pre-K", n: 29, color: "var(--dept-5)" },
 ];
 
 const DOW = [
   ["Sun", 121],
   ["Mon", 176],
-  ["Tue", 121],
-  ["Wed", 96],
-  ["Thu", 87],
+  ["Tue", 143],
+  ["Wed", 116],
+  ["Thu", 102],
 ];
 
 const DAILY = [
@@ -496,6 +542,9 @@ const DAILY = [
   ["Oct 21", 19],
   ["Oct 22", 17],
   ["Nov 2", 32],
+  ["Nov 3", 22],
+  ["Nov 4", 20],
+  ["Nov 5", 15],
 ];
 
 const FOLLOWUP = [
